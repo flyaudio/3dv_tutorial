@@ -24,7 +24,7 @@ int main(void)
         }
         fclose(fin);
         xs.push_back(pts);
-        if (xs.front().size() != xs.back().size()) return -1;
+        if (xs.front().size() != xs.back().size()) return -1;//all points are visible
     }
 
     // Assume that all cameras have the same and known camera matrix
@@ -41,13 +41,13 @@ int main(void)
         visibility.push_back(visible_all);
         Ks.push_back(K.clone());                                // K for all cameras
         dist_coeffs.push_back(cv::Mat::zeros(5, 1, CV_64F));    // dist_coeff for all cameras
-        Rs.push_back(cv::Mat::eye(3, 3, CV_64F));               // R for all cameras
+        Rs.push_back(cv::Mat::eye(3, 3, CV_64F));               // R for all cameras;假设j个pose的初始值都一样
         ts.push_back(cv::Mat::zeros(3, 1, CV_64F));             // t for all cameras
     }
 
     // Initialize 3D points
     std::vector<cv::Point3d> Xs;
-    Xs.resize(xs.front().size(), cv::Point3d(0, 0, 5.5));
+    Xs.resize(xs.front().size(), cv::Point3d(0, 0, 5.5));//假设i个点的初始值都一样
 
     // Optimize camera pose and 3D points
     try
